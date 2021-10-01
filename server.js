@@ -10,11 +10,13 @@ server.use('/', express.static('public'));
 server.use(cors({}))
 server.set("view engine", "ejs");
 server.get("/",(require,response)=>{
-    response.sendFile("./public/index.html")
+    response.sendnodeFile("./public/index.html")
 });
 server.post("/Download",async (require,response)=>{
     try{
-        let video = await ytdl.getInfo(require.body.URL);
+        let url = require.body.URL;
+        let video = await ytdl.getInfo(url);
+        console.log(video.videoDetails.title)
         response.header("Content-Disposition","attachment;\ filename="+video.videoDetails.title+".mp4")
         ytdl(url,{}).pipe(response);
     }
