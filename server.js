@@ -16,7 +16,6 @@ server.post("/Download",async (require,response)=>{
     try{
         let url = require.body.URL;
         let video = await ytdl.getInfo(url);
-        console.log(video.videoDetails.title)
         response.header("Content-Disposition","attachment;\ filename="+video.videoDetails.title+".mp4")
         ytdl(url,{}).pipe(response);
     }
